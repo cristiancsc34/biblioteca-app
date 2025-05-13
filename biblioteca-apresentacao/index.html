@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Digital</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #2c2c2c;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+        }
+
+        nav {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            background: #fff;
+            height: 3px;
+            width: 25px;
+            margin: 4px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            display: none;
+            flex-direction: column;
+            background: #2c2c2c;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .nav-links.show {
+            display: flex;
+        }
+
+        .nav-links a {
+            color: #f0f0f0;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        section {
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .apresentacao h2,
+        .recursos h2,
+        .galeria h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: #2e2e2e;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            width: 280px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .card h3 {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #cccccc;
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin: 30px auto 0;
+            padding: 15px 30px;
+            background-color: #4a4a4a;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .download-btn:hover {
+            background-color: #6a6a6a;
+            transform: scale(1.05);
+        }
+
+        /* .galeria {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .dev-card {
+            background-color: #2e2e2e;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            width: 200px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .dev-card:hover {
+            transform: scale(1.05);
+        }
+
+        .dev-card img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        .dev-card h3 {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .dev-card ol {
+            text-align: left;
+            color: #cccccc;
+        } */
+
+        footer {
+            background-color: #2c2c2c;
+            color: #aaaaaa;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        .secao-apresentacao {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: #2a2a2a;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .secao-apresentacao > .cont1,
+        .secao-apresentacao > .cont2,
+        .secao-apresentacao > .cont3,
+        .secao-apresentacao > .cont4 {
+            background-color: #3a3a3a;
+            color: #f0f0f0;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            height: 300px; /* altura fixa para todos */
+            overflow-y: auto; /* rolagem interna */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .secao-apresentacao h2 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            color: #ffffff;
+        }
+
+        .secao-apresentacao p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .cont5 {
+            grid-column: span 2;
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 30px;
+            border-top: 1px solid #555;
+        }
+
+        .cont5 h2 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #f5f5f5;
+        }
+
+        .cont5 .download-btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: #4a90e2;
+            color: #fff;
+            font-size: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cont5 .download-btn:hover {
+            background-color: #357ab7;
+            transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+    .secao-apresentacao {
+        grid-template-columns: 1fr; 
+        padding: 20px;
+    }
+
+    .secao-apresentacao > .cont1,
+    .secao-apresentacao > .cont2,
+    .secao-apresentacao > .cont3,
+    .secao-apresentacao > .cont4 {
+        height: auto;           
+        max-height: 300px;      
+        overflow-y: auto;
+    }
+
+    .cont5 {
+        grid-column: span 1;    
+        margin-top: 40px;
+        padding-top: 30px;
+    }
+
+    .download-btn {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Biblioteca Digital</h1>
+        <nav>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="/sobre.html">Sobre</a>
+                <a href="/criadores.html">desenvolvedores</a>
+            </div>
+        </nav>
+    </header>
+
+   <div class="secao-apresentacao"> 
+        <div class="cont1">
+            <h2>Bem-vindo à Nova Era da Gestão de Bibliotecas!</h2>
+            
+            <p>Imagine uma biblioteca moderna, eficiente e totalmente digital — essa é a proposta do nosso Sistema de Biblioteca Virtual, desenvolvido para transformar a forma como você gerencia livros e usuários. Seja em escolas, instituições ou projetos pessoais, nosso app oferece a solução ideal para quem busca praticidade, organização e tecnologia de ponta.</p>
+        </div>
+
+        <div class="cont2">
+            <h2>🎯 Um Objetivo Claro: Simplicidade com Eficiência</h2>
+            <p>Nosso sistema foi criado com um foco principal: facilitar o controle da biblioteca através de uma interface intuitiva, elegante e acessível a todos. Tudo isso sem abrir mão da segurança e da performance.</p>
+        </div>
+
+        <div class="cont3">
+            <h2>🔄 Como Funciona?</h2>
+            <p>Você abre o sistema e realiza seu login <br>
+            Escolhe o que deseja fazer: cadastrar, emprestar, reservar... <br>
+            Pronto! Tudo é salvo automaticamente no banco de dados</p>]
+        </div>
+
+        <div class="cont4">
+            <h2>💡 Por Que Escolher Este Sistema?</h2>
+            <p>🚀 Desenvolvido em Python com Tkinter, combinando simplicidade e visual moderno
+                🧠 Banco SQLite para armazenamento leve, sem necessidade de servidores complexos
+                🧩 Código modular para facilitar a manutenção e futuras atualizações
+                🎨 Interface gráfica amigável e acessível a todos os perfis de usuários</p>
+        </div>
+
+        <div class="cont5">    
+            <h2>💼 Transforme sua biblioteca em um ambiente digital inteligente. Faça parte da evolução!</h2>    
+            <a href="/main.rar" download class="download-btn">📥 Clique aqui para baixar o app e experimentar agora mesmo.</a>
+        </div>
+
+    </div>
+
+    <section class="recursos" id="recursos">
+        <h2>Recursos do App</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>Catálogo Online</h3>
+                <p>Pesquise e encontre livros com facilidade em nosso acervo digital.</p>
+            </div>
+            <div class="card">
+                <h3>Empréstimos Rápidos</h3>
+                <p>Solicite e devolva livros de forma prática e automatizada.</p>
+            </div>
+            <div class="card">
+                <h3>Organização Inteligente</h3>
+                <p>Gerencie sua estante pessoal e acompanhe prazos de devolução.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="galeria" id="desenvolvedores">
+        <h2>Desenvolvedores</h2>
+        <div class="galeria">
+            <div class="dev-card">
+                <img src="https://via.placeholder.com/100" alt="Cristian Costa">
+                <h3>Cristian Costa</h3>
+                <ol>
+                    <li>Front-end</li>
+                    <li>UI Design</li>
+                    <li>Documentação</li>
+                </ol>
+            </div>
+            <div class="dev-card">
+                <img src="https://via.placeholder.com/100" alt="Yuri Garcia">
+                <h3>Yuri Garcia</h3>
+                <ol>
+                    <li>Back-end</li>
+                    <li>APIs</li>
+                    <li>Banco de Dados</li>
+                </ol>
+            </div>
+            <div class="dev-card">
+                <img src="https://via.placeholder.com/100" alt="Julia Torres">
+                <h3>Julia Torres</h3>
+                <ol>
+                    <li>Testes</li>
+                    <li>UX Research</li>
+                    <li>Marketing</li>
+                </ol>
+            </div>
+            <div class="dev-card">
+                <img src="https://via.placeholder.com/100" alt="Gabriel Cardoso">
+                <h3>Gabriel Cardoso</h3>
+                <ol>
+                    <li>Documentação</li>
+                    <li>Infraestrutura</li>
+                    <li>Controle de versão</li>
+                </ol>
+            </div>
+            <div class="dev-card">
+                <img src="https://via.placeholder.com/100" alt="Brendow Franzão">
+                <h3>Brendow Franzão</h3>
+                <ol>
+                    <li>Scrum Master</li>
+                    <li>Gerenciamento</li>
+                    <li>Deploy</li>
+                </ol>
+            </div>
+        </div>
+    </section> -->
+
+    <footer>
+        <p>&copy; 2025 Biblioteca Digital. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('show');
+        }
+    </script>
+</body>
+
+</html>
